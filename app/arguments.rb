@@ -1,6 +1,7 @@
 require 'option_parser'
 
 @options = {
+  gt_length: -1,
   rest_api: {
     is_active: false,
     endpoint: nil,
@@ -46,5 +47,18 @@ OptionParser.parse do |parser|
         CVTool::Event.print('ENDPOINT', route)
       end
     end
+  end
+  parser.on( "-gt LENG", "--generate-token LENG",
+      "To secure API server access, this function\n" +
+      "generates a token with a specified length\n" +
+      "(manual entry of the token into the ENV\n" +
+      "is required).\n" +
+      "The default: #{CVTool::Constants::GT_LENGTH} length" ) do |length|
+
+    length = length.to_i
+    if length <= 0
+      length = CVTool::Constants::GT_LENGTH
+    end
+    @options[:gt_length] = length
   end
 end

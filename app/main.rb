@@ -16,4 +16,9 @@ if @options[:rest_api][:is_active]
 
   CVTool::RestApi.define_method( endpoint, h_get, h_post )
   exit
+else
+  unless @options[:gt_length] == -1
+    token = CVTool.generate_token( @options[:gt_length] )
+    CVTool::Event.print('TOKEN |', token)
+  end
 end

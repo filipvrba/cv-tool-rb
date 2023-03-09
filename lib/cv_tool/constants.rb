@@ -48,5 +48,6 @@ module CVTool
         'bio'
       ]
     }
+    GT_LENGTH = 40
   end
 end
