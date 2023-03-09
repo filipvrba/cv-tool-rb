@@ -20,7 +20,7 @@ OptionParser.parse do |parser|
     exit
   end
   parser.on( "-v", "--version", "Show version" ) do
-    puts "Version is #{CVTool::VERSION}"
+    CVTool::Event.print('VERSION |', CVTool::VERSION)
     exit
   end
   parser.on( "-ra", "--rest-api", "Rest API for get and post operations\n" +
