@@ -29,40 +29,15 @@ module CVTool
       end
       h_add = lambda do |symbol|
         h_event_print.call()
-
-        Constants::SHEMAS[symbol].each do |name|
-          l_input = lambda do |info|
-            print "#{info}: "
-            input = STDIN.gets.chomp
-            return input
-          end
-
-          unless name == Constants::SHEMAS[:project][3]
-            input = l_input.call(name) 
-            if name.index('is') or name.index('id')
-              input = input.to_i()
-            end
-            result[name.to_sym] = input
-          else
-            input = l_input.call("#{name} (a file's path)")
-            content = Files.get_content( input )
-            result[name.to_sym] = content
-          end
-        end
+        result = Event::emit(:input_add, symbol)
       end
       h_free = lambda do
         h_event_print.call()
-
-        print "id: "
-        result[:id] = STDIN.gets.chomp.to_i
+        result = Event::emit(:input_free)
       end
       h_update = lambda do
         h_event_print.call()
-
-        print "id: "
-        result[:id] = STDIN.gets.chomp.to_i
-        print "query: "
-        result[:query] = STDIN.gets.chomp
+        result = Event::emit(:input_update)
       end
 
       case endpoint
