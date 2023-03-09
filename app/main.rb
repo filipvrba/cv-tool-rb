@@ -1,6 +1,7 @@
 require 'cv_tool'
 require_relative './arguments'
 require_relative './inputs'
+require_relative './signals'
 
 if @options[:rest_api][:is_active]
   endpoint = @options[:rest_api][:endpoint]
