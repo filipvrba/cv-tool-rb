@@ -18,7 +18,7 @@ h_add = lambda do |args|
         result[name.to_sym] = input
       else
         input = l_input.call("#{name} (a file's path)")
-        content = Files.get_content( input )
+        content = CVTool::Files.get_content( input )
         result[name.to_sym] = content
       end
     end

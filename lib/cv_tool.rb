@@ -1,3 +1,4 @@
+require 'string'
 require 'cv_tool/version'
 require 'cv_tool/constants'
 require 'cv_tool/event'

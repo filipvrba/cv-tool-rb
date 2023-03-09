@@ -19,6 +19,14 @@ def api_url_state()
   end
 end
 
+def is_ssl_state()
+  is_ssl = @options[:is_ssl]
+  unless is_ssl == nil
+    @configuration.parse(:is_ssl, is_ssl.to_s)
+    CVTool::Event.print('SET', ".#{@configuration.path.sub(ROOT, '')} #{get_config_str()}")
+  end
+end
+
 if @options[:rest_api][:is_active]
   endpoint = @options[:rest_api][:endpoint]
   unless endpoint
@@ -35,4 +43,5 @@ if @options[:rest_api][:is_active]
 else
   token_state()
   api_url_state()
+  is_ssl_state()
 end

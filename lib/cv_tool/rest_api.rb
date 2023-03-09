@@ -90,6 +90,8 @@ module CVTool
       begin
         uri = URI.parse(uri_api)
         http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = Event.emit(:is_ssl)
+
         request = Net::HTTP::Post.new(uri.request_uri, header)
         request.body = data.to_json
 

@@ -6,7 +6,8 @@ require 'option_parser'
     endpoint: nil,
   },
   gt_length: -1,
-  api_url: nil
+  api_url: nil,
+  is_ssl: nil,
 }
 
 OptionParser.parse do |parser|
@@ -65,5 +66,10 @@ OptionParser.parse do |parser|
   parser.on( "-sa URL", "--set-api URL", "Sets the API server's primary URL.\n" +
       "The default: #{@configuration.parse(:api_url)}" ) do |url|
     @options[:api_url] = url
+  end
+  parser.on( "-ss BOOL", "--set-ssl BOOL", "Sets the SSL encryption protocol.\n" +
+      "The default: #{@configuration.parse(:is_ssl)}" ) do |is_ssl|
+
+    @options[:is_ssl] = is_ssl.to_s.to_b
   end
 end
