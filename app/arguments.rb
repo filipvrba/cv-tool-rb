@@ -1,11 +1,12 @@
 require 'option_parser'
 
 @options = {
-  gt_length: -1,
   rest_api: {
     is_active: false,
     endpoint: nil,
-  }
+  },
+  gt_length: -1,
+  api_url: nil
 }
 
 OptionParser.parse do |parser|
@@ -60,5 +61,9 @@ OptionParser.parse do |parser|
       length = CVTool::Constants::GT_LENGTH
     end
     @options[:gt_length] = length
+  end
+  parser.on( "-sa URL", "--set-api URL", "Sets the API server's primary URL.\n" +
+      "The default: #{@configuration.parse(:api_url)}" ) do |url|
+    @options[:api_url] = url
   end
 end

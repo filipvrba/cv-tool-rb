@@ -1,4 +1,5 @@
 require 'uri'
+require 'json_parser'
 
 module CVTool
   module Files

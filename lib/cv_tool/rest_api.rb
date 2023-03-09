@@ -7,7 +7,7 @@ module CVTool
     module_function
 
     def get_uri(endpoint)
-      return "#{Constants::API_URI}/#{ endpoint }"
+      return "#{Event.emit(:api_url)}/#{ endpoint }"
     end
 
     def define_method(endpoint, h_get, h_post)

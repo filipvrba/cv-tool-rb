@@ -1,7 +1,23 @@
 require 'cv_tool'
+require_relative './configuration'
 require_relative './arguments'
 require_relative './inputs'
 require_relative './signals'
+
+def token_state()
+  unless @options[:gt_length] == -1
+    token = CVTool.generate_token( @options[:gt_length] )
+    CVTool::Event.print('TOKEN |', token)
+  end
+end
+
+def api_url_state()
+  api_url = @options[:api_url]
+  if api_url
+    @configuration.parse(:api_url, api_url)
+    CVTool::Event.print('SET', ".#{@configuration.path.sub(ROOT, '')} #{get_config_str()}")
+  end
+end
 
 if @options[:rest_api][:is_active]
   endpoint = @options[:rest_api][:endpoint]
@@ -17,8 +33,6 @@ if @options[:rest_api][:is_active]
   CVTool::RestApi.define_method( endpoint, h_get, h_post )
   exit
 else
-  unless @options[:gt_length] == -1
-    token = CVTool.generate_token( @options[:gt_length] )
-    CVTool::Event.print('TOKEN |', token)
-  end
+  token_state()
+  api_url_state()
 end
