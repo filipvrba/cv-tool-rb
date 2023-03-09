@@ -49,5 +49,6 @@ module CVTool
       ]
     }
     GT_LENGTH = 40
+    ENV_NAME = 'CV_TOKEN'
   end
 end

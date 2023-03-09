@@ -84,28 +84,42 @@ module CVTool
     def http_request(uri_api, data)
 
       header = { 'Content-Type': 'text/json' }
+      token = OS.get_token
+      data[:token] = token
 
-      uri = URI.parse(uri_api)
-      http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Post.new(uri.request_uri, header)
-      request.body = data.to_json
+      begin
+        uri = URI.parse(uri_api)
+        http = Net::HTTP.new(uri.host, uri.port)
+        request = Net::HTTP::Post.new(uri.request_uri, header)
+        request.body = data.to_json
 
-      response = http.request(request)
-      CVTool::Event.print('REQUEST', '| Server has received the request and is processing it.')
+        response = http.request(request)
+        CVTool::Event.print('REQUEST', '| Server has received the request and is processing it.')
 
-      obj = if Files.json?(response.body) then JSON.parse(response.body)
-              else Http.get_status_code(response.body) end
+        obj = if Files.json?(response.body) then JSON.parse(response.body)
+                else Http.get_status_code(response.body) end
 
-      return obj
+        return obj
+      rescue Errno::ECONNREFUSED => e
+        Event.print('ERROR', "| A request from the server is not " +
+          "answered by this #{uri_api} url address.")
+        exit
+      end
     end
 
     def http_response(uri_api)
-      uri = URI(uri_api)
-      response = Net::HTTP.get(uri)
-      obj = if Files.json?(response) then JSON.parse(response)
-              else Http.get_status_code(response) end
+      begin
+        uri = URI(uri_api)
+        response = Net::HTTP.get(uri)
+        obj = if Files.json?(response) then JSON.parse(response)
+                else Http.get_status_code(response) end
 
-      return obj
+        return obj
+      rescue Errno::ECONNREFUSED => e
+        Event.print('ERROR', "| A request from the server is not " +
+          "answered by this #{uri_api} url address.")
+        exit
+      end
     end
 
     def get_route(args)
