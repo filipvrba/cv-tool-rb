@@ -35,14 +35,15 @@ OptionParser.parse do |parser|
         puts parser
         exit
       end
-      parser.on( "-lep", "--list-endpoints", "A list of endpoints is printed." ) do
-        puts "=== ENDPOINTS ===\n\n"
+      parser.on( "-epl", "--endpoints-list", "A list of endpoints is printed." ) do
+        CVTool::Event.print('ENDPOINTS', "| All endpoints are listed in a printout.\n\n")
         puts CVTool::Constants::ENDPOINTS
         exit
       end
       parser.on( "-ep ROUTE", "--endpoint ROUTE", "Defining an endpoint to use in order\n" +
                  "to access a specific function." ) do |route|
         @options[:rest_api][:endpoint] = route
+        CVTool::Event.print('ENDPOINT', route)
       end
     end
   end

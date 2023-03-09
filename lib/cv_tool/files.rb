@@ -21,5 +21,12 @@ module CVTool
       content = Files.open(path)
       return URI.encode_www_form_component(content)
     end
+
+    def json?(str)
+      result = JSON.parse(str)
+      result.is_a?(Hash) || result.is_a?(Array)
+    rescue JSON::ParserError, TypeError
+      return false
+    end
   end
 end

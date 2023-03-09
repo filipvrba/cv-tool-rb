@@ -23,7 +23,13 @@ module CVTool
 
     def defined_data(endpoint)
       result = {}
+      h_event_print = lambda do
+        Event.print('INPUT', '| The data for the following ' +
+          'process is defined by the input process.')
+      end
       h_add = lambda do |symbol|
+        h_event_print.call()
+
         Constants::SHEMAS[symbol].each do |name|
           l_input = lambda do |info|
             print "#{info}: "
@@ -45,10 +51,14 @@ module CVTool
         end
       end
       h_free = lambda do
+        h_event_print.call()
+
         print "id: "
         result[:id] = STDIN.gets.chomp.to_i
       end
       h_update = lambda do
+        h_event_print.call()
+
         print "id: "
         result[:id] = STDIN.gets.chomp.to_i
         print "query: "
@@ -85,7 +95,7 @@ module CVTool
       uri_api = get_uri(args[:endpoint])
       response = http_response(uri_api)
 
-      puts JSON.pretty_generate(response)
+      CVTool::Event.print('RESPONSE', JSON.pretty_generate(response))
     end
 
     def post(args)
@@ -93,8 +103,7 @@ module CVTool
       data = defined_data(args[:endpoint])
       response = http_request(uri_api, data)
 
-      puts
-      puts JSON.pretty_generate(response)
+      CVTool::Event.print('RESPONSE', JSON.pretty_generate(response))
     end
 
     def http_request(uri_api, data)
@@ -107,13 +116,21 @@ module CVTool
       request.body = data.to_json
 
       response = http.request(request)
-      return JSON.parse(response.body)
+      CVTool::Event.print('REQUEST', '| Server has received the request and is processing it.')
+
+      obj = if Files.json?(response.body) then JSON.parse(response.body)
+              else Http.get_status_code(response.body) end
+
+      return obj
     end
 
     def http_response(uri_api)
       uri = URI(uri_api)
       response = Net::HTTP.get(uri)
-      JSON.parse(response)
+      obj = if Files.json?(response) then JSON.parse(response)
+              else Http.get_status_code(response) end
+
+      return obj
     end
 
     def get_route(args)
