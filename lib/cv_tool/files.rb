@@ -29,5 +29,15 @@ module CVTool
     rescue JSON::ParserError, TypeError
       return false
     end
+
+    def get_json_db(path)
+      if File.exist? path
+        path = path.gsub('\'', '').strip
+        json_parser = JsonParser.new(path)
+        return json_parser.db
+      else
+        return nil
+      end
+    end
   end
 end

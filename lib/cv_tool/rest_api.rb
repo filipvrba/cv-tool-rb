@@ -21,48 +21,67 @@ module CVTool
       end
     end
 
-    def defined_data(endpoint)
+    def defined_data(endpoint, request_body)
       result = {}
-      h_event_print = lambda do
-        Event.print('INPUT', '| The data for the following ' +
-          'process is defined by the input process.')
-      end
-      h_add = lambda do |symbol|
-        h_event_print.call()
-        result = Event::emit(:input_add, symbol)
-      end
-      h_free = lambda do
-        h_event_print.call()
-        result = Event::emit(:input_free)
-      end
-      h_update = lambda do
-        h_event_print.call()
-        result = Event::emit(:input_update)
+
+      if request_body == nil
+        h_event_print = lambda do
+          Event.print('INPUT', '| The data for the following ' +
+            'process is defined by the input process.')
+        end
+        h_add = lambda do |symbol|
+          h_event_print.call()
+          result = Event::emit(:input_add, symbol)
+        end
+        h_free = lambda do
+          h_event_print.call()
+          result = Event::emit(:input_free)
+        end
+        h_update = lambda do
+          h_event_print.call()
+          result = Event::emit(:input_update)
+        end
+
+        case endpoint
+        # Articles
+        when Constants::ENDPOINTS[3]
+          h_add.call(:article)
+        when Constants::ENDPOINTS[4]
+          h_free.call()
+        when Constants::ENDPOINTS[5]
+          h_update.call()
+        # Projects
+        when Constants::ENDPOINTS[6]
+          h_add.call(:project)
+        when Constants::ENDPOINTS[7]
+          h_free.call()
+        when Constants::ENDPOINTS[8]
+          h_update.call()
+        # Profiles
+        when Constants::ENDPOINTS[9]
+          h_add.call(:profile)
+        when Constants::ENDPOINTS[10]
+          h_free.call()
+        when Constants::ENDPOINTS[11]
+          h_update.call()
+        end
+      else
+        result = Files.get_json_db(request_body)
+
+        if result == nil
+          CVTool::Event.print('ERROR', "| This '#{request_body}' " +
+            "file cannot be loaded because of an invalid path.")
+          exit
+        end
+
+        content_symbol = Constants::SHEMAS[:project][3].to_s
+        content = result[content_symbol]
+        if content
+          content = Files.get_content( content )
+          result[content_symbol] = content
+        end
       end
 
-      case endpoint
-      # Articles
-      when Constants::ENDPOINTS[3]
-        h_add.call(:article)
-      when Constants::ENDPOINTS[4]
-        h_free.call()
-      when Constants::ENDPOINTS[5]
-        h_update.call()
-      # Projects
-      when Constants::ENDPOINTS[6]
-        h_add.call(:project)
-      when Constants::ENDPOINTS[7]
-        h_free.call()
-      when Constants::ENDPOINTS[8]
-        h_update.call()
-      # Profiles
-      when Constants::ENDPOINTS[9]
-        h_add.call(:profile)
-      when Constants::ENDPOINTS[10]
-        h_free.call()
-      when Constants::ENDPOINTS[11]
-        h_update.call()
-      end
       return result
     end
 
@@ -75,7 +94,7 @@ module CVTool
 
     def post(args)
       uri_api = get_uri(args[:endpoint])
-      data = defined_data(args[:endpoint])
+      data = defined_data(args[:endpoint], args[:request_body])
       response = http_request(uri_api, data)
 
       CVTool::Event.print('RESPONSE', JSON.pretty_generate(response))

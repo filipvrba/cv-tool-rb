@@ -4,6 +4,7 @@ require 'option_parser'
   rest_api: {
     is_active: false,
     endpoint: nil,
+    request_body: nil,
   },
   gt_length: -1,
   api_url: nil,
@@ -38,15 +39,24 @@ OptionParser.parse do |parser|
         puts parser
         exit
       end
+      parser.on( "-ep ROUTE", "--endpoint ROUTE", "Defining an endpoint to use in order\n" +
+                 "to access a specific function." ) do |route|
+        @options[:rest_api][:endpoint] = route
+        CVTool::Event.print('ENDPOINT', route)
+      end
       parser.on( "-epl", "--endpoints-list", "A list of endpoints is printed." ) do
         CVTool::Event.print('ENDPOINTS', "| All endpoints are listed in a printout.\n\n")
         puts CVTool::Constants::ENDPOINTS
         exit
       end
-      parser.on( "-ep ROUTE", "--endpoint ROUTE", "Defining an endpoint to use in order\n" +
-                 "to access a specific function." ) do |route|
-        @options[:rest_api][:endpoint] = route
-        CVTool::Event.print('ENDPOINT', route)
+      parser.on( "-reb PATH", "--request-body PATH", "The information that must be sent\n" +
+          "as *request.body* via a json file.\n" +
+          "(The location to the *.json* file must be\n" +
+          "entered if this option is chosen;\n" +
+          "else, the data must be manually entered\n" +
+          "via the terminal input.)" ) do |path|
+        @options[:rest_api][:request_body] = path
+        CVTool::Event.print('REQUEST-BODY', path)
       end
     end
   end
