@@ -1,6 +1,6 @@
 module CVTool
   module Constants
-    APP_NAME = 'cvt'
+    APP_NAME = 'cvtool'
     API_URI = 'http://localhost:8080/api/v1'
     ENDPOINTS = [
       'get/articles',
@@ -45,7 +45,8 @@ module CVTool
         'avatar',
         'email',
         'phone',
-        'bio'
+        'bio',
+        'password'
       ]
     }
     GT_LENGTH = 40

@@ -1,4 +1,3 @@
-require 'json_parser'
 require 'json'
 
 @configuration = JsonParser.new File.join(ROOT, 'config/default.json')

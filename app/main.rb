@@ -12,22 +12,43 @@ def token_state()
 end
 
 def api_url_state()
-  api_url = @options[:api_url]
+  sym = :api_url
+  api_url = @options[sym]
   if api_url
-    @configuration.parse(:api_url, api_url)
-    CVTool::Event.print('SET', ".#{@configuration.path.sub(ROOT, '')} #{get_config_str()}")
+    @configuration.parse(sym, api_url)
+    CVTool::Event.print('SET', "#{sym.to_s}: #{api_url.to_s}")
   end
 end
 
 def is_ssl_state()
-  is_ssl = @options[:is_ssl]
+  sym = :is_ssl
+  is_ssl = @options[sym]
   unless is_ssl == nil
-    @configuration.parse(:is_ssl, is_ssl.to_s)
-    CVTool::Event.print('SET', ".#{@configuration.path.sub(ROOT, '')} #{get_config_str()}")
+    @configuration.parse(sym, is_ssl.to_s)
+    CVTool::Event.print('SET', "#{sym.to_s}: #{is_ssl.to_s}")
   end
 end
 
-if @options[:rest_api][:is_active]
+def ra_define_method_state(endpoint, &block)
+  h_get = lambda do
+    CVTool::RestApi.get(@options[:rest_api]) do |response|
+      if block
+        block.call(response)
+      end
+    end
+  end
+  h_post = lambda do
+    CVTool::RestApi.post(@options[:rest_api]) do |response|
+      if block
+        block.call(response)
+      end
+    end
+  end
+
+  CVTool::RestApi.define_method( endpoint, h_get, h_post )
+end
+
+def rest_api_state(&block)
   endpoint = @options[:rest_api][:endpoint]
   unless endpoint
     CVTool::Event.print('WARNING', "| You must fill out the Endpoint for " +
@@ -35,11 +56,38 @@ if @options[:rest_api][:is_active]
     exit
   end
 
-  h_get = lambda { CVTool::RestApi.get(@options[:rest_api]) }
-  h_post = lambda { CVTool::RestApi.post(@options[:rest_api]) }
+  ra_define_method_state(endpoint) do |response|
+    if block
+      block.call(response)
+    end
+  end
+end
 
-  CVTool::RestApi.define_method( endpoint, h_get, h_post )
-  exit
+def generate_db_state()
+  get_endpoints = [
+    CVTool::Constants::ENDPOINTS[0],
+    CVTool::Constants::ENDPOINTS[1]
+  ]
+
+  get_endpoints.each do |endpoint|
+    @options[:rest_api][:endpoint] = endpoint
+    rest_api_state() do |response|
+      args = {
+        endpoint: endpoint,
+        response: response,
+        path: @options[:rest_api][:generate_db]
+      }
+      CVTool.generate_db(args)
+    end
+  end
+end
+
+if @options[:rest_api][:is_active]
+  unless @options[:rest_api][:generate_db]
+    rest_api_state()
+  else
+    generate_db_state()
+  end
 else
   token_state()
   api_url_state()

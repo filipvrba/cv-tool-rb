@@ -5,6 +5,7 @@ require 'option_parser'
     is_active: false,
     endpoint: nil,
     request_body: nil,
+    generate_db: nil,
   },
   gt_length: -1,
   api_url: nil,
@@ -24,6 +25,11 @@ OptionParser.parse do |parser|
   parser.on( "-v", "--version", "Show version" ) do
     CVTool::Event.print('VERSION |', CVTool::VERSION)
     exit
+  end
+  parser.on( "-dp", "--deactive-print", "Disables the printing process." ) do
+    bool = false
+    CVTool::Event.print('PRINT', bool)
+    CVTool::Event::set_print_active(bool)
   end
   parser.on( "-ra", "--rest-api", "Rest API for get and post operations\n" +
              "(additional setting options)." ) do
@@ -57,6 +63,18 @@ OptionParser.parse do |parser|
           "via the terminal input.)" ) do |path|
         @options[:rest_api][:request_body] = path
         CVTool::Event.print('REQUEST-BODY', path)
+      end
+      parser.on( "-gdb PATH", "--generate-db PATH", "It creates *json* files for Projects and\n" +
+          "Articles in the defined path (it obtains\n" +
+          "the relevant data from the Rest API, which\n" +
+          "is then sorted and saved).\n" ) do |path|
+        
+        unless path
+          path = Dir.pwd
+        end
+
+        @options[:rest_api][:generate_db] = path
+        CVTool::Event.print('GENERATE-DB', path)
       end
     end
   end

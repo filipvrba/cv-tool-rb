@@ -1,0 +1,39 @@
+#!/bin/bash
+
+time_sleep=0
+url='http://localhost:8080/api/v1'
+is_ssl=false
+
+function wait {
+    echo "For $time_sleep seconds, we're waiting for the server to reload."
+    sleep $time_sleep
+}
+
+if [ $1 -eq 1 ]
+then
+    bin/cvtool -sa $url -ss $is_ssl &&
+    bin/cvtool -ra -ep post/tables/reset && wait &&
+    bin/cvtool -ra -ep post/profile/add -reb $HOME/Documents/code/cv-tool-rb/test/add_profile.json && wait &&
+    bin/cvtool -ra -ep post/project/add -reb $HOME/Documents/code/cv-tool-rb/test/add_project.json && wait &&
+    bin/cvtool -ra -ep post/article/add -reb $HOME/Documents/code/cv-tool-rb/test/add_article.json &&
+    echo "Done"
+elif [ $1 -eq 2 ]
+then
+    bin/cvtool -sa $url -ss $is_ssl &&
+    bin/cvtool -ra -ep post/tables/reset && wait &&
+    bin/cvtool -ra -ep post/profile/add -reb $HOME/Documents/code/cv-tool-rb/test/add_profile.json && wait &&
+
+    # Projects
+    bin/cvtool -ra -ep post/project/add -reb $HOME/Documents/code/cv-tool-rb/test/db/projects/project_1.json && wait &&
+    bin/cvtool -ra -ep post/project/add -reb $HOME/Documents/code/cv-tool-rb/test/db/projects/project_2.json && wait &&
+    bin/cvtool -ra -ep post/project/add -reb $HOME/Documents/code/cv-tool-rb/test/db/projects/project_3.json && wait &&
+
+    # Articles
+    bin/cvtool -ra -ep post/article/add -reb $HOME/Documents/code/cv-tool-rb/test/db/articles/article_1.json && wait &&
+    bin/cvtool -ra -ep post/article/add -reb $HOME/Documents/code/cv-tool-rb/test/db/articles/article_2.json && wait &&
+    bin/cvtool -ra -ep post/article/add -reb $HOME/Documents/code/cv-tool-rb/test/db/articles/article_3.json &&
+
+    echo "Done"
+else
+    echo "A defined number must be included in the number argument for the provided test."
+fi

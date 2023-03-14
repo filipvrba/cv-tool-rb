@@ -1,0 +1,7 @@
+{
+  "author_id": 1,
+  "project_id": 3,
+  "name": "Godot with Ruby syntax",
+  "description": "What you will learn from this post has to be made clear. You will discover how to create a Godot Editor extension module that runs ECMAScript (JS). You will learn how to use the RubyJS-Vite script translation tool to make the Ruby syntax function.",
+  "url": "https://github.com/filipvrba/ruby-js/blob/main/docs/gwrs.md"
+}

@@ -17,9 +17,13 @@ module CVTool
       result
     end
 
-    def get_content(path)
-      path = path.gsub('\'', '').strip
-      content = Files.open(path)
+    def get_content(path_or_content)
+      content = path_or_content
+      path = content.gsub('\'', '').strip
+      if File.exist? path
+        content = Files.open(path)
+      end
+
       return URI.encode_www_form_component(content)
     end
 

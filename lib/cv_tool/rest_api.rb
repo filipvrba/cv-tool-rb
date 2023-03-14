@@ -85,19 +85,25 @@ module CVTool
       return result
     end
 
-    def get(args)
+    def get(args, &block)
       uri_api = get_uri(args[:endpoint])
       response = http_response(uri_api)
 
-      CVTool::Event.print('RESPONSE', JSON.pretty_generate(response))
+      CVTool::Event.print('RESPONSE', "#{uri_api} #{JSON.pretty_generate(response)}")
+      if block
+        block.call(response)
+      end
     end
 
-    def post(args)
+    def post(args, &block)
       uri_api = get_uri(args[:endpoint])
       data = defined_data(args[:endpoint], args[:request_body])
       response = http_request(uri_api, data)
 
-      CVTool::Event.print('RESPONSE', JSON.pretty_generate(response))
+      CVTool::Event.print('RESPONSE', "#{uri_api} #{JSON.pretty_generate(response)}")
+      if block
+        block.call(response)
+      end
     end
 
     def http_request(uri_api, data)

@@ -1,0 +1,7 @@
+{
+  "author_id": 1,
+  "project_id": 2,
+  "name": "MRuby | API development",
+  "description": "This project's development was an intriguing process, and various prototypes were being made. MRuby and the fact that it can be used virtually anywhere astound me. I intended to create an API that would allow JS code to easily access the Ruby API. It's designed to give me access to Ruby functions that facilitate work.",
+  "url": "https://github.com/filipvrba/mrb-api/blob/main/docs/en-api_develop.md"
+}
