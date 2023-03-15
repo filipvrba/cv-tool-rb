@@ -2,7 +2,7 @@ require 'json'
 
 @configuration = JsonParser.new File.join(ROOT, 'config/default.json')
 @configuration.on :api_url, CVTool::Constants::API_URI
-@configuration.on :is_ssl, true
+@configuration.on :is_ssl, false
 
 h_api_url = lambda do |_|
   return @configuration.parse(:api_url)
