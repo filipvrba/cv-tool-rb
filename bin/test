@@ -34,6 +34,12 @@ then
     bin/cvtool -ra -ep post/article/add -reb $HOME/Documents/code/cv-tool-rb/test/db/articles/article_3.json &&
 
     echo "Done"
+elif [ $1 -eq 3 ]
+then
+    bin/cvtool -ra -ep post/tables/reset && wait &&
+    bin/cvtool -ra -ep post/profile/add -reb $HOME/Documents/code/cv-tool-rb/test/add_profile.json &&
+
+    echo "Done"
 else
     echo "A defined number must be included in the number argument for the provided test."
 fi
