@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="cvtool">CVTool</h1>
+<p>CVTool is a tool that has been specially developed to work with CV project. Its main function is to communicate with the CV site using the Rest API, which provides many endpoints that can be accessed using GET and POST methods.</p>
+<p>But CVTool also offers other useful features for developers. For example, it allows you to generate a security token that is needed when implementing a CV project. It also allows you to easily download all the necessary information from the database, such as articles and projects, and export them to JSON format for CV site backup. These exported JSON files can be sent back to the CV site or used to create a custom content file for the endpoint and upload it.</p>
+<h3 id="content">Content</h3>
+<ul>
+<li><a href="#1-installation">1 Installation</a></li>
+<li><a href="#2-using">2 Using</a>
+<ul>
+<li><a href="#21-rest-api">2.1 Rest API</a>
+<ul>
+<li><a href="#211-get">2.1.1 GET</a></li>
+<li><a href="#212-post">2.1.2 POST</a>
+<ul>
+<li><a href="#212a-request-body">2.1.2a Request Body</a>
+<ul>
+<li><a href="#212a1-json-templates">2.1.2a1 JSON Templates</a></li>
+</ul>
+</li>
+<li><a href="#212b-security-token">2.1.2b Security Token</a></li>
+</ul>
+</li>
+<li><a href="#213-generating-a-db">2.1.3 Generating a DB</a></li>
+</ul>
+</li>
+<li><a href="#22-generating-a-token">2.2 Generating a Token</a></li>
+<li><a href="#23-api-setup">2.3 API Setup</a></li>
+<li><a href="#24-ssl-setup">2.4 SSL Setup</a></li>
+</ul>
+</li>
+<li><a href="#3-project-structure">3 Project structure</a></li>
+<li><a href="#4-dependencies">4 Dependencies</a></li>
+<li><a href="#5-articles">5 Articles</a></li>
+<li><a href="#6-examples">6 Examples</a></li>
+<li><a href="#7-licence">7 Licence</a></li>
+</ul>
+<h2 id="1-installation">1 Installation</h2>
+<p>You must have Ruby installed to install CVTool. The tool can be installed using the Ruby ecosystem <em>gem</em>.</p>
+<p>Just use the following command:</p>
+<pre class="hljs"><code><div>gem install cv-tool
+</div></code></pre>
+<p>This command will automatically install the latest version of CVTool on your system and ensure it is set up correctly for use.</p>
+<h2 id="2-using">2 Using</h2>
+<p>The app offers the following features, that you can run with the appropriate arguments:</p>
+<ul>
+<li>
+<p><strong>-h, --help</strong></p>
+<blockquote>
+<p>Show help</p>
+</blockquote>
+</li>
+<li>
+<p><strong>-v, --version</strong></p>
+<blockquote>
+<p>Show version</p>
+</blockquote>
+</li>
+<li>
+<p><strong>-dp, --deactive-print</strong></p>
+<blockquote>
+<p>Disables the printing process.</p>
+</blockquote>
+</li>
+<li>
+<p><strong>-ra, --rest-api</strong></p>
+<blockquote>
+<p>Rest API for get and post operations
+(additional setting options).</p>
+</blockquote>
+<ul>
+<li><strong>-ep ROUTE, --endpoint ROUTE</strong>
+<blockquote>
+<p>Defining an endpoint to use in order
+to access a specific function.</p>
+</blockquote>
+</li>
+<li><strong>-epl, --endpoints-list</strong>
+<blockquote>
+<p>A list of endpoints is printed.</p>
+</blockquote>
+</li>
+<li><strong>-reb PATH, --request-body PATH</strong>
+<blockquote>
+<p>The information that must be sent
+as <em>request.body</em> via a json file.
+(The location to the <em>.json</em> file must be
+entered if this option is chosen;
+else, the data must be manually entered
+via the terminal input.)</p>
+</blockquote>
+</li>
+<li><strong>-gdb PATH, --generate-db PATH</strong>
+<blockquote>
+<p>It creates <em>json</em> files for Projects and
+Articles in the defined path (it obtains
+the relevant data from the Rest API, which
+is then sorted and saved).</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>-gt LENG, --generate-token LENG</strong></p>
+<blockquote>
+<p>To secure API server access, this function
+generates a token with a specified length
+(manual entry of the token into the ENV
+is required).
+The default: 40 length</p>
+</blockquote>
+</li>
+<li>
+<p><strong>-sa URL, --set-api URL</strong></p>
+<blockquote>
+<p>Sets the API server's primary URL.
+The default: http://localhost:8080/api/v1</p>
+</blockquote>
+</li>
+<li>
+<p><strong>-ss BOOL, --set-ssl BOOL</strong></p>
+<blockquote>
+<p>Sets the SSL encryption protocol.
+The default: false</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="21-rest-api">2.1 Rest API</h3>
+<p>For the REST API to work properly, you must set the correct values for the <strong>--set-api</strong> and <strong>--set-ssl</strong> arguments. Once successfully set, the REST API can be accessed using the <strong>--rest-api</strong> argument. This argument opens up additional options for selecting the desired functionality, the basic idea being to fill the <strong>--endpoint</strong> argument with the given route.</p>
+<p>To better navigate through the available endpoints, the <strong>--endpoints-list</strong> argument is available to print a list of routes.</p>
+<p><em>Below is a list of available endpoints:</em></p>
+<ul>
+<li>
+<p><em>Article:</em></p>
+<ul>
+<li><strong>get/articles</strong></li>
+<li><strong>post/article/add</strong></li>
+<li><strong>post/article/free</strong></li>
+<li><strong>post/article/update</strong></li>
+</ul>
+</li>
+<li>
+<p><em>Project:</em></p>
+<ul>
+<li><strong>get/projects</strong></li>
+<li><strong>post/project/add</strong></li>
+<li><strong>post/project/free</strong></li>
+<li><strong>post/project/update</strong></li>
+</ul>
+</li>
+<li>
+<p><em>Profile:</em></p>
+<ul>
+<li><strong>get/profiles</strong></li>
+<li><strong>post/profile/add</strong></li>
+<li><strong>post/profile/free</strong></li>
+<li><strong>post/profile/update</strong></li>
+</ul>
+</li>
+<li>
+<p><em>Table:</em></p>
+<ul>
+<li><strong>post/tables/reset</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="211-get">2.1.1 GET</h3>
+<p>To get the necessary information using the GET method, you must use the selected endpoint that starts with <em>get/</em> in the route. <em>If we need to get information about articles, we can use the following command in the terminal:</em></p>
+<pre class="hljs"><code><div>cvtool -ra -ep get/articles
+</div></code></pre>
+<h3 id="212-post">2.1.2 POST</h3>
+<p>To use the POST method, it is accessed using the selected endpoint, which starts with <em>post/</em> in the route. <em>If you need to create a new project, you can use the following command, which will then prompt you for additional information:</em></p>
+<pre class="hljs"><code><div>cvtool -ra -ep post/project/add
+...
+author_id: 1
+name: Sandbox 
+category: Test 
+content (a file's path): Content is this text, so I'm not writing the absolute path to the json file for content here.
+...
+</div></code></pre>
+<h3 id="212a-request-body">2.1.2a Request Body</h3>
+<p>For all endpoints starting with <em>post/</em> in the route, there is an option to use the <strong>--request-body</strong> argument, where you can specify the path to the JSON key file for the endpoint.</p>
+<p><em>If you want to create a new article for an existing project, you can do the following:</em></p>
+<ol>
+<li>
+<p>Get the project ID using the command:</p>
+<pre class="hljs"><code><div>cvtool -ra -ep get/projects
+</div></code></pre>
+</li>
+<li>
+<p>Create a JSON file named <em>article_1.json</em> that contains the following keys for the article:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// article_1.json</span>
+{
+    <span class="hljs-attr">"author_id"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">"project_id"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Article for Sandbox"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Here will be a description of the article."</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/&lt;article_name&gt;.md"</span>
+}
+</div></code></pre>
+</li>
+<li>
+<p>Then you can use the command below and add the created <em>article_1.json</em> file as the <strong>--request-body</strong> argument. Then the command will run and everything will be automatically executed without having to fill in any more information about the project in the terminal.</p>
+<p><em>Sample command:</em></p>
+<pre class="hljs"><code><div>cvtool -ra -ep post/project/add --request-body /home/filip/artcile_1.json 
+</div></code></pre>
+</li>
+</ol>
+<h3 id="212a1-json-templates">2.1.2a1 JSON Templates</h3>
+<p>You can find more templates for <em>json</em> files and a complete list at the following link:</p>
+<ul>
+<li><a href="/docs/json_templates.md">JSON Templates</a></li>
+</ul>
+<blockquote>
+<h3 id="info">Info</h3>
+<p>The endpoint <strong>post/tables/reset</strong> has no <em>JSON</em> template because there is no need to append any information to the request body. This endpoint is used to reset tables and does not need any data for its execution.</p>
+</blockquote>
+<h3 id="212b-security-token">2.1.2b Security Token</h3>
+<p>To use the POST method in CVTool, you must have a security token inserted into the UNIX environment. If you do not have such a token in your environment, the POST method will not be executed.</p>
+<p>To insert a security token, do the following:</p>
+<ol>
+<li>
+<p>Open the <em>.bashrc</em> file in your home directory with the command:</p>
+<pre class="hljs"><code><div>nano ~/.bashrc
+</div></code></pre>
+</li>
+<li>
+<p>At the end of the file, add an export line for the <strong>CV_TOKEN</strong> variable, where the value is your security token.</p>
+<p><em>For example:</em></p>
+<pre class="hljs"><code><div>export CV_TOKEN=&quot;iq9ZLdFB6NI2PlUBSy1gMXAwVEIJ1OTedarIaRDQ&quot;
+</div></code></pre>
+</li>
+<li>
+<p>Save the file to insert the security token into the UNIX environment.</p>
+</li>
+</ol>
+<h3 id="213-generating-a-db">2.1.3 Generating a DB</h3>
+<p>Backing up your CV site database to a local drive is a tool that allows you to download all the information you need for articles and projects. The <strong>--generate-db</strong> command selects only the relevant information and saves it individually in <em>JSON</em> files, article by article and project by project. To back up the database, specify the path to the destination folder as an argument to the command.</p>
+<p>The procedure for generating the DB is as follows:</p>
+<ol>
+<li>
+<p>Generate a DB to a specific folder using the following command:</p>
+<pre class="hljs"><code><div>cvtool -ra --generate-db ~/Desktop/cv_db
+</div></code></pre>
+</li>
+</ol>
+<p>When the process is complete, the program will print information about what files have been generated. All articles and projects are stored in the <em>&quot;~/Desktop/cv_db&quot;</em> folder.</p>
+<p><em>The structure of this folder should look like this:</em></p>
+<pre class="hljs"><code><div>~/Desktop/cv_db
+├── articles
+│   └── article_1.json
+└── projects
+    └── project_1.json
+</div></code></pre>
+<h3 id="22-generating-a-token">2.2 Generating a Token</h3>
+<p>To generate a new security token, you can use the <strong>--generate-token</strong> command, for which you can define the length of the token. If you do not define a token length, the program will automatically generate a token of 40 characters.</p>
+<p><em>Here is an example of a command to generate a security token:</em></p>
+<pre class="hljs"><code><div>cvtool --generate-token
+</div></code></pre>
+<p><em>Save the generated security token in the UNIX environment. If you don't know how to store the security token in the environment, read this snippet:</em></p>
+<ul>
+<li><a href="#212b-security-token">2.1.2b Security Token</a></li>
+</ul>
+<h3 id="23-api-setup">2.3 API Setup</h3>
+<p>To fully manipulate the API within the CVTool program, the API URL must be set. The <strong>--set-api</strong> attribute is used to set the desired address. The default address that is set for the local server used within the CV project development environment is <em>&quot;http://localhost:8080/api/v1&quot;</em>.</p>
+<p><em>If we want to change the API URL, we can use the following command:</em></p>
+<pre class="hljs"><code><div>cvtool --<span class="hljs-built_in">set</span>-api https://cvfv.fly.dev
+</div></code></pre>
+<p>This command can be used to change the URL to the desired one.</p>
+<h3 id="24-ssl-setup">2.4 SSL Setup</h3>
+<p>SSL (Secure Sockets Layer) is a technology that provides encrypted communication between a web server and a client and provides security for the transmission of sensitive data. To activate SSL, we need to use the <strong>--set-ssl</strong> attribute and set it to <em>&quot;true&quot;</em>. The default value is <em>&quot;false&quot;</em> because the local server usually does not need this security feature for testing.</p>
+<p><em>To activate SSL, use the following command:</em></p>
+<pre class="hljs"><code><div>cvtool --<span class="hljs-built_in">set</span>-ssl <span class="hljs-literal">true</span>
+</div></code></pre>
+<blockquote>
+<h3 id="info">Info</h3>
+<p>If you have already uploaded a CV site, for example, as part of <em>fly.io</em>, you need to activate SSL.</p>
+</blockquote>
+<h2 id="3-project-structure">3 Project structure</h2>
+<p>This project is written in Ruby programming language. All scripts use only the module and no class object is used.</p>
+<p><em>The project is divided into the following components:</em></p>
+<pre class="hljs"><code><div>.
+├── app
+├── bin
+├── lib
+└── test
+</div></code></pre>
+<p><em>Folder description:</em></p>
+<ul>
+<li>
+<p><strong>app</strong>: The folder contains scripts for the CLI application. Here you will find scripts for handling the terminal. The scripts that are used are listed below:</p>
+<ul>
+<li><em>arguments.rb</em>: Contains all the arguments for the CVTool.</li>
+<li><em>configuration.rb</em>: Configuration for CVTool, stores the necessary information that does not need to be specified as arguments.</li>
+<li><em>inputs.rb</em>: Includes the processing of inputs from the terminal when the terminal requests the input needed to send an API request.</li>
+<li><em>main.rb</em>: The main script that is executed each time the application starts.</li>
+<li><em>signals.rb</em>: Contains all the necessary UNIX signals that CVTool receives.</li>
+</ul>
+</li>
+<li>
+<p><strong>bin</strong>: Contains the executable files that are:</p>
+<ul>
+<li><em>build</em>: A script written in Ruby that creates a gem package and uploads it to the Ruby Gem.</li>
+<li><em>cvtool</em>: Runs the <em>main.rb</em> script.</li>
+<li><em>test</em>: A script written in bash that executes certain tests that are broken down by number. To run a test with the number one, you type 1 after the executable.</li>
+</ul>
+</li>
+<li>
+<p><strong>lib</strong>: Contains all the application logic.</p>
+</li>
+<li>
+<p><strong>test</strong>: Contains the files needed to execute the tests.</p>
+</li>
+</ul>
+<h2 id="4-dependencies">4 Dependencies</h2>
+<p>This CVTool tool can be run without installing additional gem packages. The only required dependency is a running CV site, either locally or publicly.</p>
+<p>Here is a link to the CV repository:</p>
+<ul>
+<li><a href="https://github.com/filipvrba/cv-v">cv-v</a></li>
+</ul>
+<h2 id="5-articles">5 Articles</h2>
+<p>Here you will find several articles that provide more information about the CVTool project:</p>
+<ul>
+<li><a href="https://cvfv.fly.dev/projects/cv">CV</a></li>
+</ul>
+<h2 id="6-examples">6 Examples</h2>
+<p>Here are some pictures that illustrate the functionality of the CVTool tool.</p>
+<p><img src="./docs/public/cvtool_terminal_01.png" alt="cvtool_terminal_01"></p>
+<p>(pic. 1) A terminal window displaying the cvtool help tool in execution.</p>
+<p><img src="./docs/public/cvtool_terminal_03.png" alt="cvtool_terminal_03"></p>
+<p>(pic. 2) The tool generates a new security token.</p>
+<p><img src="./docs/public/cvtool_terminal_04.png" alt="cvtool_terminal_04"></p>
+<p>(pic. 3) The figure shows a tool that generates a database from the test CV API and stores it on a local disk in a selected folder.</p>
+<p><img src="./docs/public/cvtool_terminal_05.png" alt="cvtool_terminal_05"></p>
+<p>(pic. 4) The tool allows the creation of new articles and interactively queries the user for necessary information via the terminal.</p>
+<p><img src="./docs/public/cvtool_terminal_06.png" alt="cvtool_terminal_06"></p>
+<p>(pic. 5) Two open terminal windows. The left window asks for project information and the right window asks to change the project using a command.</p>
+<h2 id="7-licence">7 Licence</h2>
+<p>This project is opensource under the MIT license, programmed by <a href="https://github.com/filipvrba">Filip Vrba</a> opensource developer.</p>
+
+</body>
+</html>

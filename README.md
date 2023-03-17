@@ -279,23 +279,23 @@ Here you will find several articles that provide more information about the CVTo
 ## 6 Examples
 Here are some pictures that illustrate the functionality of the CVTool tool.
 
-![cvtool_terminal_01](/docs/public/cvtool_terminal_01.png)
+![cvtool_terminal_01](./docs/public/cvtool_terminal_01.png)
 
 (pic. 1) A terminal window displaying the cvtool help tool in execution.
 
-![cvtool_terminal_03](/docs/public/cvtool_terminal_03.png)
+![cvtool_terminal_03](./docs/public/cvtool_terminal_03.png)
 
 (pic. 2) The tool generates a new security token.
 
-![cvtool_terminal_04](/docs/public/cvtool_terminal_04.png)
+![cvtool_terminal_04](./docs/public/cvtool_terminal_04.png)
 
 (pic. 3) The figure shows a tool that generates a database from the test CV API and stores it on a local disk in a selected folder.
 
-![cvtool_terminal_05](/docs/public/cvtool_terminal_05.png)
+![cvtool_terminal_05](./docs/public/cvtool_terminal_05.png)
 
 (pic. 4) The tool allows the creation of new articles and interactively queries the user for necessary information via the terminal.
 
-![cvtool_terminal_06](/docs/public/cvtool_terminal_06.png)
+![cvtool_terminal_06](./docs/public/cvtool_terminal_06.png)
 
 (pic. 5) Two open terminal windows. The left window asks for project information and the right window asks to change the project using a command.
 
