@@ -82,11 +82,21 @@ def generate_db_state()
   end
 end
 
-if @options[:rest_api][:is_active]
-  unless @options[:rest_api][:generate_db]
+def setup_db_state()
+  if @options[:rest_api][:endpoint] == CVTool::Constants::ENDPOINTS[12]
     rest_api_state()
-  else
+  end
+
+  CVTool.setup_db(@options[:rest_api][:setup_db])
+end
+
+if @options[:rest_api][:is_active]
+  if @options[:rest_api][:generate_db]
     generate_db_state()
+  elsif @options[:rest_api][:setup_db]
+    setup_db_state()
+  else
+    rest_api_state()
   end
 else
   token_state()

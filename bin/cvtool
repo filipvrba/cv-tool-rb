@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+ROOT_FILE = __FILE__
 ROOT = File.expand_path("..", __dir__)
 $: << "#{ROOT}/lib"
 require_relative "#{ROOT}/app/main"

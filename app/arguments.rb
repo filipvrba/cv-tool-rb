@@ -6,6 +6,7 @@ require 'option_parser'
     endpoint: nil,
     request_body: nil,
     generate_db: nil,
+    setup_db: nil,
   },
   gt_length: -1,
   api_url: nil,
@@ -64,10 +65,10 @@ OptionParser.parse do |parser|
         @options[:rest_api][:request_body] = path
         CVTool::Event.print('REQUEST-BODY', path)
       end
-      parser.on( "-gdb PATH", "--generate-db PATH", "It creates *json* files for Projects and\n" +
+      parser.on( "-gdb PATH", "--generate-db PATH", "It creates JSON files for Projects and\n" +
           "Articles in the defined path (it obtains\n" +
           "the relevant data from the Rest API, which\n" +
-          "is then sorted and saved).\n" ) do |path|
+          "is then sorted and saved)." ) do |path|
         
         unless path
           path = Dir.pwd
@@ -75,6 +76,16 @@ OptionParser.parse do |parser|
 
         @options[:rest_api][:generate_db] = path
         CVTool::Event.print('GENERATE-DB', path)
+      end
+      parser.on( "-sdb PATH", "--setup-db PATH", "All JSON files for Articles and Projects\n" +
+          "are uploaded to the database." ) do |path|
+        
+        unless path
+          path = Dir.pwd
+        end
+
+        @options[:rest_api][:setup_db] = path
+        CVTool::Event.print('SETUP-DB', path)
       end
     end
   end
